@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // GetTargetPosition settings
     [SerializeField] private GameObject ground;
     [SerializeField] private float width;
+
+    
+    [SerializeField] private float forceMultilier;
     
     private Rigidbody playerRb;
 
@@ -14,14 +18,12 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // test
-        transform.position = GetTargetPosition();
+        playerRb.velocity = (GetTargetPosition() - transform.position) * forceMultilier;
     }
 
-    // Outputs a point where the mouse hits the ground
+    // Outputs a point where the mouse points to the ground (IDK how to explain that better 😂)
     private Vector3 GetTargetPosition()
     {
         Ray r = Camera.main.ScreenPointToRay(Input.mousePosition); // Direction pointed by the mouse
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
             ground.transform.position
         );
 
-        // Get the point where r hits the groundPlane
+        // Get and return the point where r hits the groundPlane
         if (groundPlane.Raycast(r, out float s))
         {
             Vector3 hitPoint = r.GetPoint(s);
