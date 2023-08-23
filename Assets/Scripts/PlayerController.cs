@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     // GetTargetPosition settings
     [SerializeField] private GameObject ground;
+    private Plane groundPlane;
     [SerializeField] private float width;
 
     
@@ -16,10 +17,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        // Convert plane GameObject to Plane object
+        groundPlane = ToPlane(ground);
+        // Start at the position of a mouse
+        transform.position = GetTargetPosition();
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        // Go to the pointed position of a mouse in the way unity physics engine likes it
         playerRb.velocity = (GetTargetPosition() - transform.position) * forceMultilier;
     }
 
@@ -27,12 +33,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 GetTargetPosition()
     {
         Ray r = Camera.main.ScreenPointToRay(Input.mousePosition); // Direction pointed by the mouse
-        
-        // convert the ground game object to a plane
-        Plane groundPlane = new Plane(
-            ground.transform.rotation * Vector3.up,
-            ground.transform.position
-        );
 
         // Get and return the point where r hits the groundPlane
         if (groundPlane.Raycast(r, out float s))
@@ -46,5 +46,14 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("No mouse hit ;(");
             return Vector3.zero;
         }
+    }
+
+    // Converts plane GameObject to Plane object
+    private Plane ToPlane(GameObject obj)
+    {
+        return new Plane(
+            obj.transform.rotation * Vector3.up,
+            obj.transform.position
+        );
     }
 }

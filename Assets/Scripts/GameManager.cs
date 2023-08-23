@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.LogError("One must imagine Sisyphus happy");
+                SadEnding();
             }
         }
     }
@@ -93,5 +94,10 @@ public class GameManager : MonoBehaviour
         new SaveData().Load();
 
         Debug.Log(Score);
+    }
+
+    private void SadEnding()
+    {
+        //TODO
     }
 }
