@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainManager : MonoBehaviour
 {
     public GameObject[] projectiles;
-    public bool IsGameOver;
+    public static bool IsGameOver;
     public float spawnTimeRange;
 
     public float[] projectileCooldownTimes;
