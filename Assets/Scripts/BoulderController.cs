@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BoulderController : MonoBehaviour
 {
-    // Some variable declaration ((Look I hab encapculation :DDDD))
+    public Vector3 startPos;
 
+    // Some variable declaration ((Look I hab encapculation :DDDD))
     [SerializeField] private float extraSpaceToWiggle;
     public float ExtraSpaceToWiggle
     {
@@ -26,6 +27,8 @@ public class BoulderController : MonoBehaviour
     {
         ground = GameObject.Find("Ground").GetComponent<GroundController>();
         sphereCollider = GetComponent<SphereCollider>();
+        // set position to starting position
+        transform.position = ground.OkBackToAbsolute(startPos);
     }
 
     void FixedUpdate()
