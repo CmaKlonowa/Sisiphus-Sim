@@ -9,12 +9,14 @@ public class BirbProjectile : Projectile
 
     public float flyForceStrength;
     public float hitStrength;
-
     private bool isDie = false;
+    private Animator animator;
 
     //private Quaternion rotationOffset;
     protected override void Spawn()
     {
+        animator = GetComponentsInChildren<Animator>()[0];
+        animator.SetInteger("isDie", 0);
         thisRb = GetComponent<Rigidbody>();
         //rotationOffset = transform.rotation;
         myFocus = GameObject.Find("Boulder");
@@ -54,6 +56,8 @@ public class BirbProjectile : Projectile
     {
         thisRb.useGravity = true;
         isDie = true;
+        // Manage animations
+        animator.SetInteger("isDie", 1);
     }
 
     private Quaternion GetFocusedRotation()

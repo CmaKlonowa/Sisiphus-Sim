@@ -1081,7 +1081,7 @@ MonoBehaviour:
   forceMultilier: 15
   xRotation: 30
   rotationalSpeed: 0.5
-  xBounds: 0
+  xBounds: 9
 --- !u!4 &855086134
 Transform:
   m_ObjectHideFlags: 0

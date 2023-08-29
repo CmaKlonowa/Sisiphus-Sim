@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
         // Some rotation IDK what I did
         playerRb.MoveRotation(Quaternion.Euler(xRotation, 0F, ModularDistance(transform.rotation.z, 0F, 360F) * Time.fixedDeltaTime * rotationalSpeed));
 
-        ManageCloudEffects();
         ConstrainPosition();
         ControllAnimation();
     }
@@ -52,22 +51,24 @@ public class PlayerController : MonoBehaviour
         return (distance1 < distance2)? distance1: ((sayIfCrossedModulus)? -1: 1) * distance2;
     }
 
-    void ManageCloudEffects()
-    {
-        if (transform.position.x > xBounds || transform.position.x < -xBounds)
-        {
-            // Enable cloud particles to allow pro gamer moves
-        }
-    }
-
     void ConstrainPosition()
     {
-        // dosen't accidentally fall no clip thu the plane
+        // dosen't accidentally no clip thu the plane
         Vector3 temp = ground.ToRealtiveToGround(transform.position);
-        temp = new Vector3(temp.x, width, temp.z);
-        temp = ground.OkBackToAbsolute(temp);
 
-        transform.position = temp;
+        temp = new Vector3(temp.x, width, temp.z);
+
+        // dosen't go off the plane
+        if (temp.x > xBounds)
+        {
+            temp = new Vector3(xBounds, temp.y, temp.z);
+        }
+        else if (temp.x < -xBounds)
+        {
+            temp = new Vector3(-xBounds, temp.y, temp.z);
+        }
+
+        transform.position = ground.OkBackToAbsolute(temp);
     }
 
     void ControllAnimation()
