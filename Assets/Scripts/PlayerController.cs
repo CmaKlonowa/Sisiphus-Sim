@@ -5,62 +5,37 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // GetTargetPosition settings
-    [SerializeField] private GameObject ground;
+    private GroundController ground;
     [SerializeField] private GameObject boulder;
-    private Plane groundPlane;
     [SerializeField] private float width;
-
     [SerializeField] private float torqueMultilier;
     [SerializeField] private float forceMultilier;
-    
     private Rigidbody playerRb;
-
     public float xRotation;
     public float rotationalSpeed;
-
+    public float xBounds;
+    private Animator animator;
+    private TileMovement tile;
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        // Convert plane GameObject to Plane object
-        groundPlane = ToPlane(ground);
+        ground = GameObject.Find("Ground").GetComponent<GroundController>();
+        animator = GetComponentsInChildren<Animator>()[0];
+        tile = GameObject.Find("Tile").GetComponent<TileMovement>();
         // Start at the position of a mouse
-        transform.position = GetTargetPosition();
+        transform.position = ground.ScreenToOnPlane(Input.mousePosition, width);
     }
 
     void FixedUpdate()
     {
         // Go to the pointed position of a mouse in the way unity physics engine likes it
-        playerRb.velocity = (GetTargetPosition() - transform.position) * forceMultilier;
+        playerRb.velocity = (MainManager.IsGameOver)? Vector3.zero : (ground.ScreenToOnPlane(Input.mousePosition, width) - transform.position) * forceMultilier;
         // Some rotation IDK what I did
         playerRb.MoveRotation(Quaternion.Euler(xRotation, 0F, ModularDistance(transform.rotation.z, 0F, 360F) * Time.fixedDeltaTime * rotationalSpeed));
-    }
 
-    // Outputs a point where the mouse points to the ground (IDK how to explain that better 😂)
-    private Vector3 GetTargetPosition()
-    {
-        Ray r = Camera.main.ScreenPointToRay(Input.mousePosition); // Direction pointed by the mouse
-
-        // Get and return the point where r hits the groundPlane
-        if (groundPlane.Raycast(r, out float s))
-        {
-            Vector3 hitPoint = r.GetPoint(s);
-            hitPoint += ground.transform.rotation * Vector3.up * width; // So that the player stays on the plane (instead of inside the plane)
-            return hitPoint;
-        }
-        else
-        {
-            Debug.LogError("No mouse hit ;(");
-            return Vector3.zero;
-        }
-    }
-
-    // Converts plane GameObject to Plane object
-    private Plane ToPlane(GameObject obj)
-    {
-        return new Plane(
-            obj.transform.rotation * Vector3.up,
-            obj.transform.position
-        );
+        ManageCloudEffects();
+        ConstrainPosition();
+        ControllAnimation();
     }
 
     // modulus is sus 😂😂🤣🤣🤣💀💀💀💀
@@ -75,5 +50,40 @@ public class PlayerController : MonoBehaviour
         // compare them and output the smaller one
         // aditionally, distance2 is negated to indicate that it is crossing modulus. I think it makes sense since the line between a and b is going in the negative direction.
         return (distance1 < distance2)? distance1: ((sayIfCrossedModulus)? -1: 1) * distance2;
+    }
+
+    void ManageCloudEffects()
+    {
+        if (transform.position.x > xBounds || transform.position.x < -xBounds)
+        {
+            // Enable cloud particles to allow pro gamer moves
+        }
+    }
+
+    void ConstrainPosition()
+    {
+        // dosen't accidentally fall no clip thu the plane
+        Vector3 temp = ground.ToRealtiveToGround(transform.position);
+        temp = new Vector3(temp.x, width, temp.z);
+        temp = ground.OkBackToAbsolute(temp);
+
+        transform.position = temp;
+    }
+
+    void ControllAnimation()
+    {
+        // Logic for animations
+        if (MainManager.IsGameOver)
+        {
+            animator.SetInteger("AnimID", 2);//die ;(
+        }
+        else if (ground.ToRealtiveToGround(playerRb.velocity).z < -tile.downwardSpeed)
+        {
+            animator.SetInteger("AnimID", 0);//don't go
+        }
+        else
+        {
+            animator.SetInteger("AnimID", 1);//ok u can go now :)
+        }
     }
 }

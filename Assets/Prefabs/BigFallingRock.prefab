@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2417586083297779503
 MonoBehaviour:
@@ -52,6 +52,7 @@ MonoBehaviour:
   gameArea: {x: 18, y: 18, z: 18}
   minSpawnPos: {x: 3, y: 1, z: 13.5}
   maxSpawnPos: {x: -3, y: 1, z: 18}
+  hitKnockbackMultiplier: 10
 --- !u!54 &6043086103074025837
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,8 +153,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.47843137, g: 0.5411765, b: 0.5411765, a: 1}
-      key1: {r: 0.2901961, g: 0.3529412, b: 0.3529412, a: 0}
+      key0: {r: 0.4627451, g: 0.46274513, b: 0.4627451, a: 0.7490196}
+      key1: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -161,7 +162,7 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 32768
+      ctime1: 65535
       ctime2: 0
       ctime3: 0
       ctime4: 0
@@ -220,7 +221,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d5ce0d7a2f26be74c9e752aeb542e31a, type: 2}
+  - {fileID: 2100000, guid: 7eb2b71dd52bb5045ab2c59a451fef6b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

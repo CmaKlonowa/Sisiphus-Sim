@@ -80,20 +80,13 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-
-            Debug.Log("I'm die ;(");
         }
     }
 
     // This function is called in the first game manager
     private void OnGameStart()
     {
-        Score = 1F;
-
-        new SaveData().Save();
         new SaveData().Load();
-
-        Debug.Log(Score);
     }
 
     private void SadEnding()

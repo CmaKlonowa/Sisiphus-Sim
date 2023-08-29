@@ -12,17 +12,24 @@ public class TileMovement : MonoBehaviour
     {
         // set rotation to ground's
         transform.rotation = ground.transform.rotation;
+        transform.Rotate(Vector3.up, 180F);
         // determine start position
         transform.position = Vector3.zero;
-        transform.Translate(Vector3.forward * transform.localScale.z * 5 + new Vector3(0F,0F,zOffset));
+        transform.Translate(Vector3.back * transform.localScale.z * 5 + Vector3.back * zOffset);
     }
 
     void FixedUpdate()
     {
-        transform.Translate(Vector3.back * downwardSpeed * Time.fixedDeltaTime);
+        transform.Translate(Vector3.forward * downwardSpeed * Time.fixedDeltaTime);
         if (transform.localPosition.z - zOffset < 0F)
         {
-            transform.Translate(Vector3.forward * transform.localScale.z * 5);
+            transform.Translate(Vector3.back * transform.localScale.z * 5);
+        }
+
+        if (MainManager.IsGameOver)
+        {
+            // Stop Moving
+            downwardSpeed = 0F;
         }
     }
 }

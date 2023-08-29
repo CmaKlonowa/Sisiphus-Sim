@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2988713502245819509
 MonoBehaviour:
@@ -52,6 +52,7 @@ MonoBehaviour:
   gameArea: {x: 15, y: 15, z: 15}
   minSpawnPos: {x: 5, y: 0.5, z: 12.5}
   maxSpawnPos: {x: -5, y: 0.5, z: 15}
+  hitKnockbackMultiplier: 2.5
 --- !u!54 &5799582771082305270
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,8 +153,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.41568628, g: 0.47843137, b: 0.47843137, a: 1}
-      key1: {r: 0.2901961, g: 0.3529412, b: 0.3529412, a: 0}
+      key0: {r: 0.4627451, g: 0.4627451, b: 0.4627451, a: 0.78431374}
+      key1: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -241,7 +242,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d5ce0d7a2f26be74c9e752aeb542e31a, type: 2}
+  - {fileID: 2100000, guid: 7eb2b71dd52bb5045ab2c59a451fef6b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

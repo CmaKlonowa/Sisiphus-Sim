@@ -5,8 +5,11 @@ using UnityEngine;
 public class BoulderController : MonoBehaviour
 {
     public Vector3 startPos;
+    private bool isHeld;
+    private Rigidbody thisRb;
+    private float[] tooFarYPositions;
 
-    // Some variable declaration ((Look I hab encapculation :DDDD))
+    //((Look I add encapculation :DDDD))
     [SerializeField] private float extraSpaceToWiggle;
     public float ExtraSpaceToWiggle
     {
@@ -27,14 +30,33 @@ public class BoulderController : MonoBehaviour
     {
         ground = GameObject.Find("Ground").GetComponent<GroundController>();
         sphereCollider = GetComponent<SphereCollider>();
+        thisRb = GetComponent<Rigidbody>();
         // set position to starting position
         transform.position = ground.OkBackToAbsolute(startPos);
+
+        // Calculate too far low and high position
+        tooFarYPositions = new float[2];
+
+        var canvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+
+        Vector3[] edges = new Vector3[4];
+        canvasRect.GetWorldCorners(edges);
+
+        for (int i = 0; i < 2; i++)
+        {
+            tooFarYPositions[i] = ground.ScreenToOnPlane(edges[i * 2]).y;
+        }
+        
     }
 
     void FixedUpdate()
     {
         // Constrain boulder's position
         ConstrainPosition();
+        // Drag if too far
+        DragIfTooFar();
+
+        ManageGameOver();
     }
 
     // The boulder can't fly off the ground, that would be unfair! :(
@@ -49,5 +71,33 @@ public class BoulderController : MonoBehaviour
         }
         // Convert it back to absolute position and set to bouler's transform
         transform.position = ground.OkBackToAbsolute(relativePos);
+    }
+
+    public float tooFarDrag;
+    void DragIfTooFar()
+    {
+        thisRb.drag = (transform.position.y > tooFarYPositions[1]+extraSpaceToWiggle && thisRb.velocity.y > 0)? tooFarDrag: 0F;
+    }
+
+    // If boulder is too far low, one must imagine Sisyphus happy
+    void ManageGameOver()
+    {
+        if (transform.position.y < tooFarYPositions[0]-extraSpaceToWiggle)
+        {
+            GameObject.Find("MainManager").GetComponent<MainUIManager>().EndGame(true);
+        }
+    }
+
+    // Am I held by the player?? 🧐
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag("Player")) {
+            isHeld = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other) {
+        if (other.gameObject.CompareTag("Player")) {
+            isHeld = false;
+        }
     }
 }
