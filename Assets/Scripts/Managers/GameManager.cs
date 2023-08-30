@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
     // This function is called in the first game manager
     private void OnGameStart()
     {
+        Debug.Log("Data path: " + Application.persistentDataPath);
         new SaveData().Load();
     }
 
