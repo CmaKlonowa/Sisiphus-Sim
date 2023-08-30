@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2417586083297779503
 MonoBehaviour:
@@ -250,7 +250,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3069625521725207084}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b2340cd4de6898a42831b7c30fbd5367, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
