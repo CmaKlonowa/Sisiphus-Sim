@@ -6,6 +6,7 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public static float volume; 
 
     private float score;
     // look at my encapsulation
@@ -92,5 +93,6 @@ public class GameManager : MonoBehaviour
     private void SadEnding()
     {
         //TODO
+        Application.Quit();
     }
 }

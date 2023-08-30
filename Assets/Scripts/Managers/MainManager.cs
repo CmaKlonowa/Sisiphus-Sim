@@ -9,9 +9,12 @@ public class MainManager : MonoBehaviour
     public float spawnTimeRange;
 
     public float[] projectileCooldownTimes;
+
+    public AudioSource mainAudioSource;
     
-    void Start()
+    void Awake()
     {
+        mainAudioSource.volume = GameManager.volume;
         projectileCooldownTimes = new float[projectiles.Length]; 
 
         for (int i = 0; i < projectiles.Length; i++)
