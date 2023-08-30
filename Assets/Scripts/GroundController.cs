@@ -5,6 +5,7 @@ using UnityEngine;
 public class GroundController : MonoBehaviour
 {
     // Just a method container 😂😁😁
+    // A great example of ABSTRACTION
 
     private Plane thisPlane;
     private void Start()
@@ -17,6 +18,7 @@ public class GroundController : MonoBehaviour
         );
     }
 
+    // ABSTRACTION
     public Vector3 ScreenToOnPlane(Vector2 screen, float depth = 0F)
     {
         Ray r = Camera.main.ScreenPointToRay(screen); // Direction pointed by the screen pos
@@ -35,10 +37,12 @@ public class GroundController : MonoBehaviour
         }
     }
     
+    // ABSTRACTION
     public Vector3 ToRealtiveToGround(Vector3 position)
     {
         return transform.InverseTransformPoint(position);
     }
+    // ABSTRACTION
     public Vector3 OkBackToAbsolute(Vector3 relativePosition)
     {
         return transform.TransformPoint(relativePosition);

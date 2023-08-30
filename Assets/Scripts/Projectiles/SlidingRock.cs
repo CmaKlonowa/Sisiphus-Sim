@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SlidingRock : Projectile
 {
+    // look at my
+    // INHERITANCE
     private TileMovement tile;
 
     public float scaleRange;

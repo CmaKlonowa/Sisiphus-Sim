@@ -5,11 +5,10 @@ using UnityEngine;
 public class BoulderController : MonoBehaviour
 {
     public Vector3 startPos;
-    private bool isHeld;
     private Rigidbody thisRb;
     private float[] tooFarYPositions;
 
-    //((Look I add encapculation :DDDD))
+    // ENCAPSULATION
     [SerializeField] private float extraSpaceToWiggle;
     public float ExtraSpaceToWiggle
     {
@@ -59,6 +58,7 @@ public class BoulderController : MonoBehaviour
         ManageGameOver();
     }
 
+    // ABSTRACTION
     // The boulder can't fly off the ground, that would be unfair! :(
     void ConstrainPosition()
     {
@@ -73,31 +73,20 @@ public class BoulderController : MonoBehaviour
         transform.position = ground.OkBackToAbsolute(relativePos);
     }
 
+    // ABSTRACTION
     public float tooFarDrag;
     void DragIfTooFar()
     {
         thisRb.drag = (transform.position.y > tooFarYPositions[1]+extraSpaceToWiggle && thisRb.velocity.y > 0)? tooFarDrag: 0F;
     }
 
+    // ABSTRACTION
     // If boulder is too far low, one must imagine Sisyphus happy
     void ManageGameOver()
     {
         if (transform.position.y < tooFarYPositions[0]-extraSpaceToWiggle)
         {
             GameObject.Find("MainManager").GetComponent<MainUIManager>().EndGame(true);
-        }
-    }
-
-    // Am I held by the player?? 🧐
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.CompareTag("Player")) {
-            isHeld = true;
-        }
-    }
-
-    private void OnCollisionExit(Collision other) {
-        if (other.gameObject.CompareTag("Player")) {
-            isHeld = false;
         }
     }
 }

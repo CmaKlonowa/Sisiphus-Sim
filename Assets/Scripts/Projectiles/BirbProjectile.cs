@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BirbProjectile : Projectile
 {
+    // look at my
+    // INHERITANCE
     private Rigidbody thisRb;
     private GameObject myFocus; //the birb's main focus is boulder
 
@@ -12,7 +14,7 @@ public class BirbProjectile : Projectile
     private bool isDie = false;
     private Animator animator;
 
-    //private Quaternion rotationOffset;
+    // POLYMORPHISM
     protected override void Spawn()
     {
         animator = GetComponentsInChildren<Animator>()[0];
@@ -31,12 +33,13 @@ public class BirbProjectile : Projectile
         );
     }
 
+    // POLYMORPHISM
     protected override void PostSpawnBehaviour()
     {
         thisRb.AddForce(GetFocusedForce() * flyForceStrength * Time.fixedDeltaTime);
         transform.rotation = GetFocusedRotation();
     }
-
+    
     private void OnCollisionEnter(Collision other) {
         if (!isDie)
         {
@@ -51,7 +54,7 @@ public class BirbProjectile : Projectile
             }
         } 
     }
-
+    
     private void Die()
     {
         thisRb.useGravity = true;

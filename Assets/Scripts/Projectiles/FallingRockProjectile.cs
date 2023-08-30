@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class FallingRockProjectile : Projectile
 {
+    // look at my
+    // INHERITANCE
     private Rigidbody thisRb;
+    // POLYMORPHISM
     protected override void Spawn()
     {
         thisRb = GetComponent<Rigidbody>();

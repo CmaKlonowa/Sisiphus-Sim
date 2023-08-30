@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // GetTargetPosition settings
     private GroundController ground;
     [SerializeField] private GameObject boulder;
     [SerializeField] private float width;
@@ -37,7 +36,8 @@ public class PlayerController : MonoBehaviour
         ControllAnimation();
     }
 
-    // modulus is sus 😂😂🤣🤣🤣💀💀💀💀
+    // a good example of
+    // ABSTRACTION
 
     // Outputs the distance between a and b in modulo(modulus) number system
     private float ModularDistance(float a, float b, float modulus, bool sayIfCrossedModulus = false)
@@ -49,8 +49,10 @@ public class PlayerController : MonoBehaviour
         // compare them and output the smaller one
         // aditionally, distance2 is negated to indicate that it is crossing modulus. I think it makes sense since the line between a and b is going in the negative direction.
         return (distance1 < distance2)? distance1: ((sayIfCrossedModulus)? -1: 1) * distance2;
+        
+        // modulus is sus 😂😂🤣🤣🤣💀💀💀💀
     }
-
+    // ABSTRACTION
     void ConstrainPosition()
     {
         // dosen't accidentally no clip thu the plane
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         transform.position = ground.OkBackToAbsolute(temp);
     }
-
+    // ABSTRACTION
     void ControllAnimation()
     {
         // Logic for animations

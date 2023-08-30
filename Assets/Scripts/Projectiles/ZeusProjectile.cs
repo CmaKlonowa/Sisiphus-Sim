@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZeusProjectile : Projectile
 {
+    // look at my
+    // INHERITANCE
     [SerializeField] private float minSpeed; 
     [SerializeField] private float maxSpeed;
     [SerializeField] private float lightningfrequency;

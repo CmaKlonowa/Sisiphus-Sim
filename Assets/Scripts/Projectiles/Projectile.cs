@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    // look at my
+    // INHERITANCE
     public Vector3 gameArea;
     // ! Spawn pos is relative to ground !
     public Vector3 minSpawnPos;
     public Vector3 maxSpawnPos;
     protected static GroundController ground;
-
+    // POLYMORPHISM
+    // ABSTRACTION
     protected virtual void Spawn()
     {
         // determime spawn position relative to ground
@@ -17,7 +20,8 @@ public class Projectile : MonoBehaviour
             VectorInRange(minSpawnPos, maxSpawnPos)
         );
     }
-
+    // POLYMORPHISM
+    // ABSTRACTION
     protected virtual void DestroyOutOfBounds()
     {
         // for every dimension, check if the projectile is too far
@@ -30,7 +34,7 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-
+    // POLYMORPHISM
     protected virtual void PostSpawnBehaviour()
     {
         // IDK 4 now😰
@@ -38,7 +42,6 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
-        // if ground is no, ground is yes
         if (ground == null) { ground = GameObject.Find("Ground").GetComponent<GroundController>(); }
 
         Spawn();

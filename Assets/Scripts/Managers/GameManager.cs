@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public static float volume = 1F; 
 
     private float score;
-    // look at my encapsulation
+    // look at my
+    // ENCAPSULATION
     public float Score {
         get {
             return score;
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("One must imagine Sisyphus happy");
+                Debug.LogError("One must imagine Sisyphus happy"); // He'll never reach the top of Olympus
                 SadEnding();
             }
         }
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
         {
             score = GameManager.instance.Score;
         }
-
+        // ABSTRACTION
         public void Save()
         {
             string json = JsonUtility.ToJson(new SaveData());
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
 
             Debug.Log($"saved {json} at " + Application.persistentDataPath + "/savefile.json");
         }
-
+        // ABSTRACTION
         public float Load()
         {
             string path = Application.persistentDataPath + "/savefile.json";
