@@ -6,7 +6,7 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public static float volume; 
+    public static float volume = 1F; 
 
     private float score;
     // look at my encapsulation
